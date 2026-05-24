@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Download signal-cli build from CI workflow
         uses: actions/download-artifact@v8
+        with:
+          pattern: signal-cli-*
 
       - name: Get signal-cli version
         id: version
@@ -87,6 +89,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Download signal-cli build from CI workflow
         uses: actions/download-artifact@v8
+        with:
+          pattern: signal-cli-*
 
       - name: Move archive file
         run: |
@@ -127,6 +131,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Download signal-cli build from CI workflow
         uses: actions/download-artifact@v8
+        with:
+          pattern: signal-cli-*
 
       - name: Move archive file
         run: |
@@ -168,6 +174,8 @@ jobs:
       - uses: actions/checkout@v6
       - name: Download signal-cli build from CI workflow
         uses: actions/download-artifact@v8
+        with:
+          pattern: signal-cli-*
 
       - name: Move archive file
         run: |
