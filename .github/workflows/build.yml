@@ -27,6 +27,13 @@ jobs:
             export OVERRIDE_JAVA_VERSION="${{ matrix.java }}"
           fi
           ./reproducible-builds/build.sh
+      - name: Generate JSON schemas archive
+        if: matrix.java == '25'
+        run: |
+          ./gradlew jsonSchemas
+          VERSION=$(cat dist/VERSION)
+          tar -czf "dist/signal-cli-${VERSION}-json-schemas.tar.gz" \
+            -C build/generated/META-INF/schemas .
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7
         with:
