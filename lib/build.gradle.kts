@@ -57,6 +57,6 @@ tasks.withType<JavaCompile> {
 
 tasks.jar {
     manifest {
-        attributes("Automatic-Module-Name" to "org.asamk.signal.manager")
+        attributes("Automatic-Module-Name" to "org.tvup.signal.manager")
     }
 }

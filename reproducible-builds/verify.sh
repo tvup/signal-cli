@@ -11,9 +11,9 @@ VERSION=$(sed -n 's/\s*version\s*=\s*"\(.*\)".*/\1/p' build.gradle.kts | tail -n
 
 echo "Download latest release from GitHub..."
 
-curl -L --fail "https://github.com/AsamK/signal-cli/releases/download/v${VERSION}/signal-cli-${VERSION}.tar.gz" -o "github/signal-cli-${VERSION}.tar.gz"
-curl -L --fail "https://github.com/AsamK/signal-cli/releases/download/v${VERSION}/signal-cli-${VERSION}-Linux-native.tar.gz" -o "github/signal-cli-${VERSION}-Linux-native.tar.gz"
-curl -L --fail "https://github.com/AsamK/signal-cli/releases/download/v${VERSION}/signal-cli-${VERSION}-Linux-client.tar.gz" -o "github/signal-cli-${VERSION}-Linux-client.tar.gz"
+curl -L --fail "https://github.com/tvup/signal-cli/releases/download/v${VERSION}/signal-cli-${VERSION}.tar.gz" -o "github/signal-cli-${VERSION}.tar.gz"
+curl -L --fail "https://github.com/tvup/signal-cli/releases/download/v${VERSION}/signal-cli-${VERSION}-Linux-native.tar.gz" -o "github/signal-cli-${VERSION}-Linux-native.tar.gz"
+curl -L --fail "https://github.com/tvup/signal-cli/releases/download/v${VERSION}/signal-cli-${VERSION}-Linux-client.tar.gz" -o "github/signal-cli-${VERSION}-Linux-client.tar.gz"
 
 ./reproducible-builds/build.sh
 
