@@ -27,6 +27,12 @@ jobs:
             export OVERRIDE_JAVA_VERSION="${{ matrix.java }}"
           fi
           ./reproducible-builds/build.sh
+      - name: Set up JDK 25 for jsonSchemas
+        if: matrix.java == '25'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '25'
       - name: Generate JSON schemas archive
         if: matrix.java == '25'
         run: |
