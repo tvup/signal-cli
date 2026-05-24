@@ -11,7 +11,7 @@ permissions:
 
 env:
   IMAGE_NAME: signal-cli
-  IMAGE_REGISTRY: ghcr.io/asamk
+  IMAGE_REGISTRY: ghcr.io/tvup
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ github.token }}
   ARCHIVE_JAVA_VERSION: 25
