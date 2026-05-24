@@ -60,8 +60,8 @@ jobs:
   build-image:
     needs: build
     runs-on: ubuntu-latest
-    # Kør kun image-byg på main-branch eller tags, ikke for hver feature-branch
-    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+    # Kør kun image-byg på master-branch eller tags, ikke for hver feature-branch
+    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/checkout@v6
 

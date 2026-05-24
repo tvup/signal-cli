@@ -9,7 +9,7 @@ plugins {
 }
 
 allprojects {
-    group = "org.asamk"
+    group = "org.tvup"
     version = "0.14.5-SNAPSHOT"
 }
 
