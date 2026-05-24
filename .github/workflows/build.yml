@@ -7,7 +7,9 @@ on:
   pull_request:
   workflow_call:
 
-permissions: {}
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   build:
@@ -55,3 +57,33 @@ jobs:
           path: |
             client/target/release/signal-cli-client
             client/target/release/signal-cli-client.exe
+  build-image:
+    needs: build
+    runs-on: ubuntu-latest
+    # Kør kun image-byg på main-branch eller tags, ikke for hver feature-branch
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Download signal-cli archive (Java 25)
+        uses: actions/download-artifact@v7
+        with:
+          name: signal-cli-archive-25
+          path: dist/
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push custom signal-cli-rest-api image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/signal-cli-rest-api:test
+            ghcr.io/${{ github.repository_owner }}/signal-cli-rest-api:${{ github.sha }}

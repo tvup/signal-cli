@@ -22,7 +22,7 @@ echo "$VERSION" >dist/VERSION
 $ENGINE build -t signal-cli:build ${OVERRIDE_JAVA_VERSION:+--build-arg ZULU_TAG=$OVERRIDE_JAVA_VERSION} -f reproducible-builds/build.Containerfile .
 git clean -Xfd -e '!/dist/' -e '!/dist/**' -e '!/github/' -e '!/github/**'
 # shellcheck disable=SC2086
-$ENGINE run --pull=never --rm -v "$(pwd)":/signal-cli:Z -e VERSION="$VERSION" $USER signal-cli:build
+$ENGINE run --pull=never --rm -v "$(pwd)":/signal-cli:Z -e VERSION="$VERSION" -e HOME=/signal-cli $USER signal-cli:build
 mv build/distributions/signal-cli-*.tar.gz dist/
 
 if [ -n "${OVERRIDE_JAVA_VERSION:-}" ]; then
@@ -34,14 +34,14 @@ fi
 $ENGINE build -t signal-cli:native -f reproducible-builds/native.Containerfile .
 git clean -Xfd -e '!/dist/' -e '!/dist/**' -e '!/github/' -e '!/github/**'
 # shellcheck disable=SC2086
-$ENGINE run --pull=never --rm -v "$(pwd)":/signal-cli:Z -e VERSION="$VERSION" $USER signal-cli:native
+$ENGINE run --pull=never --rm -v "$(pwd)":/signal-cli:Z -e VERSION="$VERSION" -e HOME=/signal-cli $USER signal-cli:native
 mv build/signal-cli-*-Linux-native.tar.gz dist/
 
 # Build rust client
 $ENGINE build -t signal-cli:client -f reproducible-builds/client.Containerfile .
 git clean -Xfd -e '!/dist/' -e '!/dist/**' -e '!/github/' -e '!/github/**'
 # shellcheck disable=SC2086
-$ENGINE run --pull=never --rm -v "$(pwd)":/signal-cli:Z -e VERSION="$VERSION" $USER signal-cli:client
+$ENGINE run --pull=never --rm -v "$(pwd)":/signal-cli:Z -e VERSION="$VERSION" -e HOME=/signal-cli $USER signal-cli:client
 mv build/signal-cli-*-Linux-client.tar.gz dist/
 
 ls -lsh dist/

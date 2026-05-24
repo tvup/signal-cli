@@ -48,6 +48,7 @@ public class ServiceConfig {
         return switch (serviceEnvironment) {
             case LIVE -> LiveConfig.getServiceEnvironmentConfig(interceptors);
             case STAGING -> StagingConfig.getServiceEnvironmentConfig(interceptors);
+            case TEST -> TestConfig.getServiceEnvironmentConfig(interceptors);
         };
     }
 }

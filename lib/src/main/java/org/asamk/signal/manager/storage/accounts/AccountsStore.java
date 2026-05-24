@@ -282,6 +282,7 @@ public class AccountsStore {
         return switch (serviceEnvironment) {
             case LIVE -> "LIVE";
             case STAGING -> "STAGING";
+	    case TEST -> "TEST";
         };
     }
 

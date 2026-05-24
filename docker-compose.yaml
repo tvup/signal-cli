@@ -1,0 +1,10 @@
+services:
+  signal-api:
+    image: ghcr.io/jeres-org/signal-cli-rest-api:test
+    environment:
+      MODE: json-rpc
+      SIGNAL_CLI_EXTRA_ARGS: "--service-environment=test"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./signal-cli-config:/home/.local/share/signal-cli
