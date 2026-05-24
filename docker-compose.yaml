@@ -1,6 +1,6 @@
 services:
   signal-api:
-    image: ghcr.io/jeres-org/signal-cli-rest-api:test
+    image: ghcr.io/tvup/signal-cli-rest-api:test
     environment:
       MODE: json-rpc
       SIGNAL_CLI_EXTRA_ARGS: "--service-environment=test"

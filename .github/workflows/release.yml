@@ -5,7 +5,9 @@ on:
     tags:
       - v*
 
-permissions: {}
+permissions:
+  contents: read
+  packages: write
 
 env:
   IMAGE_NAME: signal-cli
