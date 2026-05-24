@@ -91,12 +91,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Read signal-cli version
+        id: version
+        run: echo "version=$(cat dist/VERSION)" >> $GITHUB_OUTPUT
+
       - name: Build & push custom signal-cli-rest-api image
         uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile
           push: true
+          build-args: |
+            SIGNAL_CLI_VERSION=${{ steps.version.outputs.version }}
           tags: |
             ghcr.io/${{ github.repository_owner }}/signal-cli-rest-api:test
             ghcr.io/${{ github.repository_owner }}/signal-cli-rest-api:${{ github.sha }}

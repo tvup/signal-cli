@@ -1,9 +1,11 @@
 # syntax=docker/dockerfile:1.7
 FROM bbernhard/signal-cli-rest-api:latest
 
+ARG SIGNAL_CLI_VERSION
+
 ENV MODE=json-rpc
 
-COPY dist/signal-cli-*-SNAPSHOT.tar.gz /tmp/signal-cli.tar.gz
+COPY dist/signal-cli-${SIGNAL_CLI_VERSION}.tar.gz /tmp/signal-cli.tar.gz
 
 RUN set -eux; \
     mkdir -p /opt/signal-cli-custom; \
