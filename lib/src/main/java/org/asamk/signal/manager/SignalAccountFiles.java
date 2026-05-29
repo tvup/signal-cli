@@ -118,7 +118,13 @@ public class SignalAccountFiles {
         }
 
         if (account.getServiceEnvironment() != null && account.getServiceEnvironment() != serviceEnvironment) {
-            throw new IOException("Account is registered in another environment: " + account.getServiceEnvironment());
+            // Defense-in-depth: en konto importeret fra et andet environment skal IKKE
+            // kunne nå Signal's reelle servere. Tving environment til det runtime kører i,
+            // så LiveConfig / StagingConfig URLs (vores torben.it-rebrand) bruges uanset.
+            logger.warn("Account {} was registered in {}; forcing to {} (defense-in-depth).",
+                    account.getNumber(), account.getServiceEnvironment(), serviceEnvironment);
+            account.setServiceEnvironment(serviceEnvironment);
+            accountsStore.updateAccount(accountPath, account.getNumber(), account.getAci());
         }
 
         account.initDatabase();

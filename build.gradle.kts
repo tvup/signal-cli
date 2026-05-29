@@ -10,7 +10,7 @@ plugins {
 
 allprojects {
     group = "org.tvup"
-    version = "0.14.10"
+    version = "0.14.11"
 }
 
 java {
