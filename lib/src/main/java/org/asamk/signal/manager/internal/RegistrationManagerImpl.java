@@ -296,17 +296,18 @@ public class RegistrationManagerImpl implements RegistrationManager {
             m = new ManagerImpl(account, pathConfig, accountFileUpdater, serviceEnvironmentConfig, userAgent);
             account = null;
 
-            m.refreshPreKeys();
+            try {
+                m.refreshPreKeys();
+            } catch (IOException e) {
+                // Pre-keys upload kan fejle i lokal dev-stack (manglende auth, CDN-routing, etc.)
+                // Lad ikke registration-flowet aborte pga. det — kontoen er allerede oprettet
+                // og kan bruges til at sende beskeder. Pre-keys kan refreshes senere.
+                logger.warn("refreshPreKeys failed; continuing without pre-key upload: {}", e.getMessage());
+            }
             if (response.isStorageCapable()) {
-                try {
-                    m.syncRemoteStorage();
-                } catch (IOException e) {
-                    // Storage Service kan være utilgængelig i lokal dev-deployment
-                    // (separat microservice — ikke en del af Signal-Server-stack).
-                    // Bryd ikke registration-flowet pga. det.
-                    logger.warn("syncRemoteStorage failed (storage service unavailable?); continuing without sync: {}",
-                            e.getMessage());
-                }
+                // syncRemoteStorage er fire-and-forget (enqueues async job) og kaster ikke
+                // synkront, så ingen try/catch nødvendig. Kalder bare videre.
+                m.syncRemoteStorage();
             }
             // Set an initial empty profile so user can be added to groups
             try {
