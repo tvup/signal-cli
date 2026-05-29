@@ -32,13 +32,13 @@ class LiveConfig {
     private static final String CDSI_MRENCLAVE = "0f6fd79cdfdaa5b2e6337f534d3baf999318b0c462a7ac1f41297a3e4b424a57";
     private static final String SVR2_MRENCLAVE = "29cd63c87bea751e3bfd0fbd401279192e2e5c99948b4ee9437eafc4968355fb";
 
-    private static final String URL = "https://chat.signal.org";
-    private static final String CDN_URL = "https://cdn.signal.org";
-    private static final String CDN2_URL = "https://cdn2.signal.org";
-    private static final String CDN3_URL = "https://cdn3.signal.org";
-    private static final String STORAGE_URL = "https://storage.signal.org";
-    private static final String SIGNAL_CDSI_URL = "https://cdsi.signal.org";
-    private static final String SIGNAL_SVR2_URL = "https://svr2.signal.org";
+    private static final String URL = "https://chat.torben.it";
+    private static final String CDN_URL = "https://cdn.torben.it";
+    private static final String CDN2_URL = "https://cdn2.torben.it";
+    private static final String CDN3_URL = "https://cdn3.torben.it";
+    private static final String STORAGE_URL = "https://storage.torben.it";
+    private static final String SIGNAL_CDSI_URL = "https://cdsi.torben.it";
+    private static final String SIGNAL_SVR2_URL = "https://svr2.torben.it";
     private static final TrustStore TRUST_STORE = new WhisperTrustStore();
 
     private static final Optional<Dns> dns = Optional.empty();

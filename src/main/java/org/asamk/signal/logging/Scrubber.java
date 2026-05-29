@@ -237,7 +237,7 @@ public final class Scrubber {
             if (matcher.groupCount() == 2
                     && TOP_100_TLDS.contains(matcher.group(2).toLowerCase(Locale.US))
                     && !match.endsWith("whispersystems.org")
-                    && !match.endsWith("signal.org")) {
+                    && !match.endsWith("torben.it")) {
                 output.append(DOMAIN_CENSOR).append(matcher.group(2));
             } else {
                 output.append(match);

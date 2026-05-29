@@ -32,13 +32,13 @@ class StagingConfig {
     private static final String CDSI_MRENCLAVE = "0f6fd79cdfdaa5b2e6337f534d3baf999318b0c462a7ac1f41297a3e4b424a57";
     private static final String SVR2_MRENCLAVE = "a75542d82da9f6914a1e31f8a7407053b99cc99a0e7291d8fbd394253e19b036";
 
-    private static final String URL = "https://chat.staging.signal.org";
-    private static final String CDN_URL = "https://cdn-staging.signal.org";
-    private static final String CDN2_URL = "https://cdn2-staging.signal.org";
-    private static final String CDN3_URL = "https://cdn3-staging.signal.org";
-    private static final String STORAGE_URL = "https://storage-staging.signal.org";
-    private static final String SIGNAL_CDSI_URL = "https://cdsi.staging.signal.org";
-    private static final String SIGNAL_SVR2_URL = "https://svr2.staging.signal.org";
+    private static final String URL = "https://chat.staging.torben.it";
+    private static final String CDN_URL = "https://cdn-staging.torben.it";
+    private static final String CDN2_URL = "https://cdn2-staging.torben.it";
+    private static final String CDN3_URL = "https://cdn3-staging.torben.it";
+    private static final String STORAGE_URL = "https://storage-staging.torben.it";
+    private static final String SIGNAL_CDSI_URL = "https://cdsi.staging.torben.it";
+    private static final String SIGNAL_SVR2_URL = "https://svr2.staging.torben.it";
     private static final TrustStore TRUST_STORE = new WhisperTrustStore();
 
     private static final Optional<Dns> dns = Optional.empty();
