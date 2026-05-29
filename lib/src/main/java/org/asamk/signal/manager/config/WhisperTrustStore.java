@@ -1,5 +1,6 @@
 package org.asamk.signal.manager.config;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.whispersystems.signalservice.api.push.TrustStore;
 
 import java.io.ByteArrayInputStream;
@@ -7,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
+import java.security.Security;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
@@ -17,12 +19,18 @@ class WhisperTrustStore implements TrustStore {
 
     private static volatile byte[] cachedKeyStoreBytes;
 
+    static {
+        if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+    }
+
     @Override
     public InputStream getKeyStoreInputStream() {
         try {
             return new ByteArrayInputStream(getKeyStoreBytes());
         } catch (Exception e) {
-            throw new RuntimeException("Failed to build in-memory trust store from " + CERT_RESOURCE, e);
+            throw new RuntimeException("Failed to build in-memory BKS trust store from " + CERT_RESOURCE, e);
         }
     }
 
@@ -50,7 +58,9 @@ class WhisperTrustStore implements TrustStore {
                 cert = (X509Certificate) cf.generateCertificate(certStream);
             }
 
-            final KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+            // BlacklistingTrustManager (signalservice-core) loads via BouncyCastle's BKS-spi —
+            // a JKS-formatted store would fail with "Wrong version of key store".
+            final KeyStore ks = KeyStore.getInstance("BKS", BouncyCastleProvider.PROVIDER_NAME);
             ks.load(null, KEYSTORE_PASSWORD.toCharArray());
             ks.setCertificateEntry("torben-it", cert);
 
