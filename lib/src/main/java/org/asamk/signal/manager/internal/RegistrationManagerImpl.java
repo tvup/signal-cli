@@ -298,7 +298,15 @@ public class RegistrationManagerImpl implements RegistrationManager {
 
             m.refreshPreKeys();
             if (response.isStorageCapable()) {
-                m.syncRemoteStorage();
+                try {
+                    m.syncRemoteStorage();
+                } catch (IOException e) {
+                    // Storage Service kan være utilgængelig i lokal dev-deployment
+                    // (separat microservice — ikke en del af Signal-Server-stack).
+                    // Bryd ikke registration-flowet pga. det.
+                    logger.warn("syncRemoteStorage failed (storage service unavailable?); continuing without sync: {}",
+                            e.getMessage());
+                }
             }
             // Set an initial empty profile so user can be added to groups
             try {
